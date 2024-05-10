@@ -3,8 +3,8 @@
 
 using namespace std;
 
-cuckoo_filter::cuckoo_filter(/* args */) {
+CuckooFilter::CuckooFilter() {
 }
 
-cuckoo_filter::~cuckoo_filter() {
+CuckooFilter::~CuckooFilter() {
 }

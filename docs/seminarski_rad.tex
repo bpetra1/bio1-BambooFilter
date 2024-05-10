@@ -1,0 +1,105 @@
+\documentclass[seminarskirad]{fer}
+
+
+\usepackage{blindtext}
+
+
+%--- PODACI O RADU / THESIS INFORMATION ----------------------------------------
+
+% Naslov na engleskom jeziku / Title in English
+\title{Bamboo Filter}
+
+% Naslov na hrvatskom jeziku / Title in Croatian
+\naslov{Bamboo Filter}
+
+% Autor / Author
+\author{Petra Buršić i Nikola Kušen}
+
+% Mentor 
+\mentor{Prof.\@ Mirjana Domazet-Lošo}
+
+% Datum rada na engleskom jeziku / Date in English
+\date{May, 2024}
+
+% Datum rada na hrvatskom jeziku / Date in Croatian
+\datum{svibanj, 2024.}
+
+%-------------------------------------------------------------------------------
+
+
+\begin{document}
+
+
+% Naslovnica se automatski generira / Titlepage is automatically generated
+\maketitle
+
+
+% Odovud započinje numeriranje stranica / Page numbering starts from here
+\mainmatter
+
+
+%--- SAŽETAK / ABSTRACT --------------------------------------------------------
+
+% Sažetak na hrvatskom
+\begin{sazetak}
+  Unesite sažetak na hrvatskom.
+
+  \blindtext
+\end{sazetak}
+
+\begin{kljucnerijeci}
+  prva ključna riječ; druga ključna riječ; treća ključna riječ
+\end{kljucnerijeci}
+
+
+% Sadržaj se automatski generira / Table of contents is automatically generated
+\tableofcontents
+
+
+%--- UVOD / INTRODUCTION -------------------------------------------------------
+\chapter{Uvod}
+\label{pog:uvod}
+
+Ovaj rad pisan je kao projekt na predmetu Bioinformatika 1 gdje nam je zadatak bio istražiti i implementirati Bamboo filter. To je struktura podataka za upite približnog članstva (eng. Approximate membership query data structure ili AMQ). Ime dolazi od načina korištenja tih struktura podataka kojima postavljamo upite tipa "Je li X član ove strukture", a kao odgovor dobijemo ili da je X \textit{možda} u strukturi ili da \textit{sigurno} nije. Drugim riječima, AMQ strukture mogu dati lažno pozitivan rezultat, ali ne i lažno negativan.
+
+Neke AMQ strukture podataka osim bamboo filtera su bloom filteri, cuckoo filteri i XOR filteri, a osnovna motivacija iza bamboo filtera je rješavanje dva problema koji postoje kod ostalih AMQ struktura. Svaka struktura ponekad se treba povećati kako bi se napravilo mjesta za nove podatke. Prvi problem koji se tu javlja jest da je povećanje strukture blokirajuća operacija, to jest ne možemo raditi ništa drugo sa strukturom kada je ona u procesu povećanja. Drugi problem je degradacija performansi, odnosno povećanje vremena potrebnog za odgovoriti na upit u odnosu na ono prije povećanja strukture.
+
+
+%-------------------------------------------------------------------------------
+\chapter{Glavni dio}
+\label{pog:glavni_dio}
+
+Bamboo filter sastoji se od hash tablice u koji su spremljeni \textit{segmenti}, a svaki segment je zapravo cuckoo filter. Prilikom povećanja strukture, bamboo filter dodaje (ili briše) samo jedan segment.
+
+
+%-------------------------------------------------------------------------------
+\chapter{Rezultati i rasprava}
+\label{pog:rezultati_i_rasprava}
+
+\Blindtext
+
+
+%--- ZAKLJUČAK / CONCLUSION ----------------------------------------------------
+\chapter{Zaključak}
+\label{pog:zakljucak}
+
+\blindtext
+
+
+%--- LITERATURA / REFERENCES ---------------------------------------------------
+
+% Literatura se automatski generira / References are automatically generated
+% Upiši ime BibTeX datoteke bez .bib nastavka / Enter the name of the BibTeX file without .bib extension
+\bibliography{literatura}
+
+
+%--- PRIVITCI / APPENDIX -------------------------------------------------------
+
+\backmatter
+
+\chapter{The Code}
+
+\Blindtext
+
+
+\end{document}

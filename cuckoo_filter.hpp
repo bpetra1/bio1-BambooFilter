@@ -1,15 +1,15 @@
 #ifndef A2DD_H
 #define A2DD_H
 
-class cuckoo_filter
+class CuckooFilter
 {
 private:
-    int capacity;
-    int bucket_size;
+    int capacity_;
+    int bucket_size_;
 
 public:
-    cuckoo_filter(/* args */);
-    ~cuckoo_filter();
+    CuckooFilter(/* args */);
+    ~CuckooFilter();
 };
 
 #endif
