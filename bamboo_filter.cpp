@@ -17,7 +17,7 @@ bool BambooFilter::insert(const int &element)
     size_t hash_val = hash(element);
     size_t segment_index = get_segment_index(hash_val);
 
-    // return segments[segment_index].cuckoo.insert(element);
+    // return segments[segment_index].insert(element);
 }
 
 bool BambooFilter::lookup(const int &element) const
@@ -25,7 +25,7 @@ bool BambooFilter::lookup(const int &element) const
     size_t hash_val = hash(element);
     size_t segment_index = get_segment_index(hash_val);
 
-    // return segments[segment_index].cuckoo.lookup(element);
+    // return segments[segment_index].lookup(element);
 }
 
 bool BambooFilter::remove(const int &element)
@@ -33,7 +33,7 @@ bool BambooFilter::remove(const int &element)
     size_t hash_val = hash(element);
     size_t segment_index = get_segment_index(hash_val);
 
-    // return segments[segment_index].cuckoo.remove(element);
+    // return segments[segment_index].remove(element);
 }
 
 void BambooFilter::expand()

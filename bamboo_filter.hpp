@@ -1,7 +1,7 @@
 #ifndef BAMBOO_FILTER_H
 #define BAMBOO_FILTER_H
 
-#include "cuckoo_filter.hpp"
+#include "segment.hpp"
 #include <vector>
 
 class BambooFilter
@@ -16,11 +16,6 @@ public:
     void expand();
 
 private:
-    struct Segment
-    {
-        CuckooFilter cuckoo; // Cuckoo filter used as segment
-    };
-
     std::vector<Segment> segments;
     size_t segment_size;
 
