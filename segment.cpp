@@ -13,7 +13,8 @@ Segment::Segment() : overflow_(nullptr)
 Segment::~Segment()
 {
     delete[] table_;
-    if (overflow_ != nullptr) {
+    if (overflow_ != nullptr)
+    {
         delete overflow_;
     }
 }
@@ -26,16 +27,20 @@ bool Segment::insert(uint32_t element)
     uint32_t i2 = (i1 ^ fingerprint) % kNumOfBuckets;
 
     // try to put the element in the first bucket
-    for (int j = 0; j < kBucketSize; j++) {
-        if (table_[i1 * kNumOfBuckets + j] == 0) {
+    for (int j = 0; j < kBucketSize; j++)
+    {
+        if (table_[i1 * kNumOfBuckets + j] == 0)
+        {
             table_[i1 * kNumOfBuckets + j] = element;
             return true;
         }
     }
 
     // try the second bucket
-    for (int j = 0; j < kBucketSize; j++) {
-        if (table_[i2 * kNumOfBuckets + j] == 0) {
+    for (int j = 0; j < kBucketSize; j++)
+    {
+        if (table_[i2 * kNumOfBuckets + j] == 0)
+        {
             table_[i2 * kNumOfBuckets + j] = element;
             return true;
         }
@@ -49,7 +54,8 @@ bool Segment::insert(uint32_t element)
     // distribution for selecting random entries in bucket
     distribution = uniform_int_distribution<int>(0, kBucketSize);
 
-    for (int n = 0; n < kMaxNumKicks; n++) {
+    for (int n = 0; n < kMaxNumKicks; n++)
+    {
         // get random entry
         uint32_t e = table_[i * kNumOfBuckets + distribution(generator)];
 
@@ -60,8 +66,10 @@ bool Segment::insert(uint32_t element)
 
         // calculate alternative bucket of element that was kicked out and try to put it there
         i = (i ^ fingerprint) % kNumOfBuckets;
-        for (int j = 0; j < kBucketSize; j++) {
-            if (table_[i * kNumOfBuckets + j] == 0) {
+        for (int j = 0; j < kBucketSize; j++)
+        {
+            if (table_[i * kNumOfBuckets + j] == 0)
+            {
                 table_[i * kNumOfBuckets + j] = element;
                 return true;
             }
@@ -69,7 +77,8 @@ bool Segment::insert(uint32_t element)
     }
 
     // store in overflow segment
-    if (overflow_ == nullptr) {
+    if (overflow_ == nullptr)
+    {
         overflow_ = new Segment();
     }
     return overflow_->insert(element);
@@ -78,7 +87,7 @@ bool Segment::insert(uint32_t element)
     return false;
 }
 
-bool Segment::lookup(uint32_t element)
+bool Segment::lookup(uint32_t element) const
 {
     // calculate fingerprint and buckets for this element
     uint32_t fingerprint = element >> (kBucketIndexBitLength + kInitialSegmentIndexBitLength);
@@ -86,21 +95,26 @@ bool Segment::lookup(uint32_t element)
     uint32_t i2 = (i1 ^ fingerprint) % kNumOfBuckets;
 
     // try to find the element in the first bucket
-    for (int j = 0; j < kBucketSize; j++) {
-        if (table_[i1 * kNumOfBuckets + j] == element) {
+    for (int j = 0; j < kBucketSize; j++)
+    {
+        if (table_[i1 * kNumOfBuckets + j] == element)
+        {
             return true;
         }
     }
 
     // try the second bucket
-    for (int j = 0; j < kBucketSize; j++) {
-        if (table_[i2 * kNumOfBuckets + j] == element) {
+    for (int j = 0; j < kBucketSize; j++)
+    {
+        if (table_[i2 * kNumOfBuckets + j] == element)
+        {
             return true;
         }
     }
-    
+
     // try the overflow segment
-    if (overflow_ != nullptr) {
+    if (overflow_ != nullptr)
+    {
         return overflow_->lookup(element);
     }
 
@@ -116,26 +130,58 @@ bool Segment::remove(uint32_t element)
     uint32_t i2 = (i1 ^ fingerprint) % kNumOfBuckets;
 
     // try to find the element in the first bucket
-    for (int j = 0; j < kBucketSize; j++) {
-        if (table_[i1 * kNumOfBuckets + j] == element) {
+    for (int j = 0; j < kBucketSize; j++)
+    {
+        if (table_[i1 * kNumOfBuckets + j] == element)
+        {
             table_[i1 * kNumOfBuckets + j] = 0;
             return true;
         }
     }
 
     // try the second bucket
-    for (int j = 0; j < kBucketSize; j++) {
-        if (table_[i2 * kNumOfBuckets + j] == element) {
+    for (int j = 0; j < kBucketSize; j++)
+    {
+        if (table_[i2 * kNumOfBuckets + j] == element)
+        {
             table_[i2 * kNumOfBuckets + j] = 0;
             return true;
         }
     }
-    
+
     // try the overflow segment
-    if (overflow_ != nullptr) {
+    if (overflow_ != nullptr)
+    {
         return overflow_->remove(element);
     }
 
     // element was not present
     return false;
+}
+
+void Segment::collect_elements(std::vector<uint32_t> &elements) const
+{
+    for (int i = 0; i < kNumOfBuckets * kBucketSize; i++)
+    {
+        if (table_[i] != 0)
+        {
+            elements.push_back(table_[i]);
+        }
+    }
+    if (overflow_ != nullptr)
+    {
+        overflow_->collect_elements(elements);
+    }
+}
+
+void Segment::clear()
+{
+    for (int i = 0; i < kNumOfBuckets * kBucketSize; ++i)
+    {
+        table_[i] = 0;
+    }
+    if (overflow_ != nullptr)
+    {
+        overflow_->clear();
+    }
 }
