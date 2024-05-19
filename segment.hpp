@@ -20,7 +20,7 @@ public:
     bool insert(uint32_t element);
     bool lookup(uint32_t element) const;
     bool remove(uint32_t element);
-    void collect_elements(vector<uint32_t> &elements) const;
+    void collect_elements(vector<uint32_t> &elements, size_t segment_index) const;
     void clear();
 };
 

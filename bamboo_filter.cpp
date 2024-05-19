@@ -27,7 +27,7 @@ bool BambooFilter::insert(const uint32_t &element)
     size_t hash_val = hash(element);
     size_t segment_index = get_segment_index(hash_val);
 
-    if (segments[segment_index].insert(element))
+    if (segments[segment_index].insert(hash_val))
     {
         elements_count++;
         if (elements_count > expansion_threshold)
@@ -46,7 +46,7 @@ bool BambooFilter::lookup(const uint32_t &element) const
     size_t hash_val = hash(element);
     size_t segment_index = get_segment_index(hash_val);
 
-    return segments[segment_index].lookup(element);
+    return segments[segment_index].lookup(hash_val);
 }
 
 bool BambooFilter::remove(const uint32_t &element)
@@ -54,7 +54,7 @@ bool BambooFilter::remove(const uint32_t &element)
     size_t hash_val = hash(element);
     size_t segment_index = get_segment_index(hash_val);
 
-    if (segments[segment_index].remove(element))
+    if (segments[segment_index].remove(hash_val))
     {
         elements_count--;
         if (elements_count < compression_threshold)
@@ -73,10 +73,10 @@ void BambooFilter::expand()
 
     elements_count = 0;
     std::vector<uint32_t> elements_to_rehash;
-    for (auto &segment : segments)
+    for (int i = 0; i < segments.size(); i++)
     {
-        segment.collect_elements(elements_to_rehash);
-        segment.clear();
+        segments[i].collect_elements(elements_to_rehash, i);
+        segments[i].clear();
     }
     for (auto &element : elements_to_rehash)
     {
@@ -98,10 +98,10 @@ void BambooFilter::compress()
 
     elements_count = 0;
     std::vector<uint32_t> elements_to_rehash;
-    for (auto &segment : segments)
+    for (int i = 0; i < segments.size(); i++)
     {
-        segment.collect_elements(elements_to_rehash);
-        segment.clear();
+        segments[i].collect_elements(elements_to_rehash, i);
+        segments[i].clear();
     }
     for (auto &element : elements_to_rehash)
     {

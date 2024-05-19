@@ -19,10 +19,16 @@ Segment::~Segment()
     }
 }
 
+inline uint32_t calclulate_fingerprint(uint32_t element)
+{
+    // left-most bit set to 1 to indicate that bucket entry is not empty
+    return element >> (kBucketIndexBitLength + kInitialSegmentIndexBitLength) | INT32_MIN;
+}
+
 bool Segment::insert(uint32_t element)
 {
     // calculate fingerprint and buckets for this element
-    uint32_t fingerprint = element >> (kBucketIndexBitLength + kInitialSegmentIndexBitLength);
+    uint32_t fingerprint = calclulate_fingerprint(element);
     uint32_t i1 = element % kNumOfBuckets;
     uint32_t i2 = (i1 ^ fingerprint) % kNumOfBuckets;
 
@@ -31,7 +37,7 @@ bool Segment::insert(uint32_t element)
     {
         if (table_[i1 * kNumOfBuckets + j] == 0)
         {
-            table_[i1 * kNumOfBuckets + j] = element;
+            table_[i1 * kNumOfBuckets + j] = fingerprint;
             return true;
         }
     }
@@ -41,7 +47,7 @@ bool Segment::insert(uint32_t element)
     {
         if (table_[i2 * kNumOfBuckets + j] == 0)
         {
-            table_[i2 * kNumOfBuckets + j] = element;
+            table_[i2 * kNumOfBuckets + j] = fingerprint;
             return true;
         }
     }
@@ -60,9 +66,8 @@ bool Segment::insert(uint32_t element)
         uint32_t e = table_[i * kNumOfBuckets + distribution(generator)];
 
         // put fingerprint in that spot
-        table_[i * kNumOfBuckets + distribution(generator)] = element;
-        element = e;
-        fingerprint = element >> (kBucketIndexBitLength + kInitialSegmentIndexBitLength);
+        table_[i * kNumOfBuckets + distribution(generator)] = fingerprint;
+        fingerprint = e;
 
         // calculate alternative bucket of element that was kicked out and try to put it there
         i = (i ^ fingerprint) % kNumOfBuckets;
@@ -70,7 +75,7 @@ bool Segment::insert(uint32_t element)
         {
             if (table_[i * kNumOfBuckets + j] == 0)
             {
-                table_[i * kNumOfBuckets + j] = element;
+                table_[i * kNumOfBuckets + j] = fingerprint;
                 return true;
             }
         }
@@ -90,14 +95,14 @@ bool Segment::insert(uint32_t element)
 bool Segment::lookup(uint32_t element) const
 {
     // calculate fingerprint and buckets for this element
-    uint32_t fingerprint = element >> (kBucketIndexBitLength + kInitialSegmentIndexBitLength);
+    uint32_t fingerprint = calclulate_fingerprint(element);
     uint32_t i1 = element % kNumOfBuckets;
     uint32_t i2 = (i1 ^ fingerprint) % kNumOfBuckets;
 
     // try to find the element in the first bucket
     for (int j = 0; j < kBucketSize; j++)
     {
-        if (table_[i1 * kNumOfBuckets + j] == element)
+        if (table_[i1 * kNumOfBuckets + j] == fingerprint)
         {
             return true;
         }
@@ -106,7 +111,7 @@ bool Segment::lookup(uint32_t element) const
     // try the second bucket
     for (int j = 0; j < kBucketSize; j++)
     {
-        if (table_[i2 * kNumOfBuckets + j] == element)
+        if (table_[i2 * kNumOfBuckets + j] == fingerprint)
         {
             return true;
         }
@@ -125,14 +130,14 @@ bool Segment::lookup(uint32_t element) const
 bool Segment::remove(uint32_t element)
 {
     // calculate fingerprint and buckets for this element
-    uint32_t fingerprint = element >> (kBucketIndexBitLength + kInitialSegmentIndexBitLength);
+    uint32_t fingerprint = calclulate_fingerprint(element);
     uint32_t i1 = element % kNumOfBuckets;
     uint32_t i2 = (i1 ^ fingerprint) % kNumOfBuckets;
 
     // try to find the element in the first bucket
     for (int j = 0; j < kBucketSize; j++)
     {
-        if (table_[i1 * kNumOfBuckets + j] == element)
+        if (table_[i1 * kNumOfBuckets + j] == fingerprint)
         {
             table_[i1 * kNumOfBuckets + j] = 0;
             return true;
@@ -142,7 +147,7 @@ bool Segment::remove(uint32_t element)
     // try the second bucket
     for (int j = 0; j < kBucketSize; j++)
     {
-        if (table_[i2 * kNumOfBuckets + j] == element)
+        if (table_[i2 * kNumOfBuckets + j] == fingerprint)
         {
             table_[i2 * kNumOfBuckets + j] = 0;
             return true;
@@ -159,18 +164,23 @@ bool Segment::remove(uint32_t element)
     return false;
 }
 
-void Segment::collect_elements(std::vector<uint32_t> &elements) const
+void Segment::collect_elements(std::vector<uint32_t> &elements, size_t segment_index) const
 {
-    for (int i = 0; i < kNumOfBuckets * kBucketSize; i++)
+    for (int i = 0; i < kNumOfBuckets; i++)
     {
-        if (table_[i] != 0)
+        for (int j = 0; j < kBucketSize; j++)
+        if (table_[i * kNumOfBuckets + j] != 0)
         {
-            elements.push_back(table_[i]);
+            uint32_t element = table_[i * kNumOfBuckets + j] != 0;
+            element <<= kBucketIndexBitLength + kInitialSegmentIndexBitLength;
+            element |= segment_index << kBucketIndexBitLength;
+            element |= i;
+            elements.push_back(element);
         }
     }
     if (overflow_ != nullptr)
     {
-        overflow_->collect_elements(elements);
+        overflow_->collect_elements(elements, segment_index);
     }
 }
 
