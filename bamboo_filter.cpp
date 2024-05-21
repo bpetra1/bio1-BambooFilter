@@ -72,7 +72,7 @@ void BambooFilter::expand()
     segments.emplace_back();
 
     elements_count = 0;
-    std::vector<uint32_t> elements_to_rehash;
+    std::vector<size_t> elements_to_rehash;
     for (int i = 0; i < segments.size(); i++)
     {
         segments[i].collect_elements(elements_to_rehash, i);
@@ -97,7 +97,7 @@ void BambooFilter::compress()
     }
 
     elements_count = 0;
-    std::vector<uint32_t> elements_to_rehash;
+    std::vector<size_t> elements_to_rehash;
     for (int i = 0; i < segments.size(); i++)
     {
         segments[i].collect_elements(elements_to_rehash, i);
