@@ -27,25 +27,31 @@ int main() {
     int false_positives = 0;
     int false_negatives = 0;
 
-    file.open("data/negatives_" + to_string(k) + ".txt");
-    while (file) {
+    ifstream neg_file("data/negatives_" + to_string(k) + ".txt");
+    while (neg_file) {
         string k_mer;
-        file >> k_mer; 
+        neg_file >> k_mer; 
+        if (k_mer.empty()) {
+            continue;
+        }
         if (b.lookup(k_mer)) {
-            false_negatives++;
+            false_positives++;
         } else {
             true_negatives++;
         }
     }
 
-    file.open("data/positives_" + to_string(k) + ".txt");
-    while (file) {
+    ifstream pos_file("data/positives_" + to_string(k) + ".txt");
+    while (pos_file) {
         string k_mer;
-        file >> k_mer; 
+        pos_file >> k_mer; 
+        if (k_mer.empty()) {
+            continue;
+        }
         if (b.lookup(k_mer)) {
             true_positives++;
         } else {
-            false_positives++;
+            false_negatives++;
         }
     }
 
