@@ -1,10 +1,7 @@
 #include "bamboo_filter.hpp"
 #include "constants.hpp"
 #include <iostream>
-#include <vector>
-#include <string>
 #include <functional>
-#include <cmath>
 
 BambooFilter::BambooFilter(size_t initial_capacity, size_t seg_size)
     : segment_size(seg_size), elements_count(0), current_segment_index(0),
@@ -46,6 +43,7 @@ bool BambooFilter::insert_hash(const size_t &hash_val)
     if (segments[segment_index].insert(hash_val))
     {
         elements_count++;
+        std::cout << "Inserted element, new count: " << elements_count << std::endl;
         if (elements_count > expansion_threshold)
         {
             expand();
@@ -53,8 +51,7 @@ bool BambooFilter::insert_hash(const size_t &hash_val)
         return true;
     }
 
-    expand();
-    return insert_hash(hash_val);
+    return false;
 }
 
 bool BambooFilter::lookup(const std::string &element) const
@@ -92,6 +89,7 @@ bool BambooFilter::remove_hash(const size_t &hash_val)
     if (segments[segment_index].remove(hash_val))
     {
         elements_count--;
+        std::cout << "Removed element, new count: " << elements_count << std::endl;
         if (elements_count < compression_threshold && segments.size() > 1)
         {
             compress();
@@ -103,30 +101,13 @@ bool BambooFilter::remove_hash(const size_t &hash_val)
 
 void BambooFilter::expand()
 {
+    std::cout << "Expanding..." << std::endl;
     // Add a new segment
     segments.emplace_back();
-
-    // Rehash elements only from the current segment
-    elements_count = 0;
-    std::vector<size_t> elements_to_rehash;
-    segments[current_segment_index].collect_elements(elements_to_rehash, current_segment_index);
-    segments[current_segment_index].clear();
-
-    for (auto &element : elements_to_rehash)
-    {
-        insert_hash(element);
-    }
-
-    // Move to the next segment for expansion
-    current_segment_index++;
-    if (current_segment_index >= segments.size() - 1)
-    {
-        current_segment_index = 0;
-    }
+    std::cout << "Adding new segment. Total segments before expand: " << segments.size() - 1 << std::endl;
 
     // Update thresholds
-    expansion_threshold *= 2;
-    compression_threshold = expansion_threshold / 2;
+    update_thresholds();
 }
 
 void BambooFilter::compress()
@@ -136,12 +117,15 @@ void BambooFilter::compress()
         return; // No compression if only one segment remains
     }
 
+    std::cout << "Compressing..." << std::endl;
+
     // Collect elements from the current segment for compression
     std::vector<size_t> elements_to_rehash;
-    segments[current_segment_index].collect_elements(elements_to_rehash, current_segment_index);
+    segments.back().collect_elements(elements_to_rehash, current_segment_index);
 
     // Remove the current segment
-    segments.erase(segments.begin() + current_segment_index);
+    segments.pop_back();
+    std::cout << "Last segment removed. Total segments: " << segments.size() << std::endl;
 
     // Rehash elements into the remaining segments
     elements_count = 0;
@@ -150,15 +134,15 @@ void BambooFilter::compress()
         insert_hash(element);
     }
 
-    // Update the current segment index for compression
-    if (current_segment_index >= segments.size())
-    {
-        current_segment_index = 0; // Wrap around if necessary
-    }
-
     // Update thresholds
-    expansion_threshold /= 2;
+    update_thresholds();
+}
+
+void BambooFilter::update_thresholds()
+{
+    expansion_threshold = segments.size() * segment_size;
     compression_threshold = expansion_threshold / 2;
+    std::cout << "Updated thresholds. Expansion threshold: " << expansion_threshold << ", Compression threshold: " << compression_threshold << std::endl;
 }
 
 size_t BambooFilter::hash(const std::string &element) const
