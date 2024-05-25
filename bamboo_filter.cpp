@@ -7,7 +7,7 @@
 #include <cmath>
 
 BambooFilter::BambooFilter(size_t initial_capacity, size_t seg_size)
-    : segment_size(seg_size), elements_count(0),
+    : segment_size(seg_size), elements_count(0), current_segment_index(0),
       expansion_threshold(initial_capacity), compression_threshold(initial_capacity / 2)
 {
     segments.reserve(initial_capacity / segment_size);
@@ -106,17 +106,22 @@ void BambooFilter::expand()
     // Add a new segment
     segments.emplace_back();
 
-    // Rehash all elements
+    // Rehash elements only from the current segment
     elements_count = 0;
     std::vector<size_t> elements_to_rehash;
-    for (size_t i = 0; i < segments.size() - 1; ++i)
-    {
-        segments[i].collect_elements(elements_to_rehash, i);
-        segments[i].clear();
-    }
+    segments[current_segment_index].collect_elements(elements_to_rehash, current_segment_index);
+    segments[current_segment_index].clear();
+
     for (auto &element : elements_to_rehash)
     {
         insert_hash(element);
+    }
+
+    // Move to the next segment for expansion
+    current_segment_index++;
+    if (current_segment_index >= segments.size() - 1)
+    {
+        current_segment_index = 0;
     }
 
     // Update thresholds
@@ -131,22 +136,24 @@ void BambooFilter::compress()
         return; // No compression if only one segment remains
     }
 
-    // Collect all elements from the last segment
+    // Collect elements from the current segment for compression
     std::vector<size_t> elements_to_rehash;
-    segments.back().collect_elements(elements_to_rehash, segments.size() - 1);
-    segments.pop_back();
+    segments[current_segment_index].collect_elements(elements_to_rehash, current_segment_index);
+
+    // Remove the current segment
+    segments.erase(segments.begin() + current_segment_index);
 
     // Rehash elements into the remaining segments
-    for (size_t i = 0; i < segments.size(); ++i)
-    {
-        segments[i].collect_elements(elements_to_rehash, i);
-        segments[i].clear();
-    }
-
     elements_count = 0;
     for (auto &element : elements_to_rehash)
     {
         insert_hash(element);
+    }
+
+    // Update the current segment index for compression
+    if (current_segment_index >= segments.size())
+    {
+        current_segment_index = 0; // Wrap around if necessary
     }
 
     // Update thresholds

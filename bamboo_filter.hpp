@@ -1,5 +1,5 @@
-#ifndef BAMBOO_FILTER_H
-#define BAMBOO_FILTER_H
+#ifndef BAMBOO_FILTER_HPP
+#define BAMBOO_FILTER_HPP
 
 #include "segment.hpp"
 #include <vector>
@@ -9,27 +9,29 @@ class BambooFilter
 {
 public:
     BambooFilter(size_t initial_capacity, size_t segment_size);
-    ~BambooFilter(); // Declaration of destructor
+    ~BambooFilter();
 
     bool insert(const std::string &element);
     bool lookup(const std::string &element) const;
     bool remove(const std::string &element);
 
 private:
-    std::vector<Segment> segments;
-    size_t segment_size;
-    size_t elements_count;
-    size_t expansion_threshold;
-    size_t compression_threshold;
+    bool insert_hash(const size_t &hash_val);
+    bool lookup_hash(const size_t &hash_val) const;
+    bool remove_hash(const size_t &hash_val);
+
+    void expand();
+    void compress();
 
     size_t hash(const std::string &element) const;
     size_t get_segment_index(size_t hash_value) const;
 
-    bool insert_hash(const size_t &hash_val);
-    bool lookup_hash(const size_t &hash_val) const;
-    bool remove_hash(const size_t &hash_val);
-    void expand();
-    void compress();
+    std::vector<Segment> segments;
+    size_t segment_size;
+    size_t elements_count;
+    size_t current_segment_index;
+    size_t expansion_threshold;
+    size_t compression_threshold;
 };
 
-#endif // BAMBOO_FILTER_H
+#endif // BAMBOO_FILTER_HPP
