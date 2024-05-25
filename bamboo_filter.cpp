@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <functional>
+#include <cmath>
 
 BambooFilter::BambooFilter(size_t initial_capacity, size_t seg_size)
     : segment_size(seg_size), elements_count(0),
@@ -14,6 +15,7 @@ BambooFilter::BambooFilter(size_t initial_capacity, size_t seg_size)
     {
         segments.emplace_back();
     }
+    std::cout << "BambooFilter initialized with capacity: " << initial_capacity << " and segment size: " << segment_size << std::endl;
 }
 
 BambooFilter::~BambooFilter()
@@ -34,6 +36,12 @@ bool BambooFilter::insert(const std::string &element)
 bool BambooFilter::insert_hash(const size_t &hash_val)
 {
     size_t segment_index = get_segment_index(hash_val);
+
+    if (segment_index >= segments.size())
+    {
+        std::cerr << "Error: Segment index " << segment_index << " out of bounds (total segments: " << segments.size() << ")" << std::endl;
+        return false;
+    }
 
     if (segments[segment_index].insert(hash_val))
     {
@@ -58,6 +66,10 @@ bool BambooFilter::lookup(const std::string &element) const
 bool BambooFilter::lookup_hash(const size_t &hash_val) const
 {
     size_t segment_index = get_segment_index(hash_val);
+    if (segment_index >= segments.size())
+    {
+        return false;
+    }
     return segments[segment_index].lookup(hash_val);
 }
 
@@ -71,10 +83,16 @@ bool BambooFilter::remove_hash(const size_t &hash_val)
 {
     size_t segment_index = get_segment_index(hash_val);
 
+    if (segment_index >= segments.size())
+    {
+        std::cerr << "Error: Segment index " << segment_index << " out of bounds (total segments: " << segments.size() << ")" << std::endl;
+        return false;
+    }
+
     if (segments[segment_index].remove(hash_val))
     {
         elements_count--;
-        if (elements_count < compression_threshold)
+        if (elements_count < compression_threshold && segments.size() > 1)
         {
             compress();
         }
@@ -85,12 +103,13 @@ bool BambooFilter::remove_hash(const size_t &hash_val)
 
 void BambooFilter::expand()
 {
-    std::cout << "Expanding..." << "\n";
+    // Add a new segment
     segments.emplace_back();
 
+    // Rehash all elements
     elements_count = 0;
     std::vector<size_t> elements_to_rehash;
-    for (size_t i = 0; i < segments.size(); i++)
+    for (size_t i = 0; i < segments.size() - 1; ++i)
     {
         segments[i].collect_elements(elements_to_rehash, i);
         segments[i].clear();
@@ -100,31 +119,37 @@ void BambooFilter::expand()
         insert_hash(element);
     }
 
+    // Update thresholds
     expansion_threshold *= 2;
     compression_threshold = expansion_threshold / 2;
 }
 
 void BambooFilter::compress()
 {
-    std::cout << "Compressing..." << "\n";
-
-    if (!segments.empty())
+    if (segments.size() <= 1)
     {
-        segments.pop_back();
+        return; // No compression if only one segment remains
     }
 
-    elements_count = 0;
+    // Collect all elements from the last segment
     std::vector<size_t> elements_to_rehash;
-    for (size_t i = 0; i < segments.size(); i++)
+    segments.back().collect_elements(elements_to_rehash, segments.size() - 1);
+    segments.pop_back();
+
+    // Rehash elements into the remaining segments
+    for (size_t i = 0; i < segments.size(); ++i)
     {
         segments[i].collect_elements(elements_to_rehash, i);
         segments[i].clear();
     }
+
+    elements_count = 0;
     for (auto &element : elements_to_rehash)
     {
         insert_hash(element);
     }
 
+    // Update thresholds
     expansion_threshold /= 2;
     compression_threshold = expansion_threshold / 2;
 }
@@ -136,7 +161,29 @@ size_t BambooFilter::hash(const std::string &element) const
 
 size_t BambooFilter::get_segment_index(size_t hash_value) const
 {
-    // Extract the segment index from the hash value based on the bit lengths
-    size_t segment_index = (hash_value >> kBucketIndexBitLength) & ((1 << kInitialSegmentIndexBitLength) - 1);
+    size_t num_segments = segments.size();
+    size_t segment_bit_length = 0;
+
+    // Calculate the number of bits needed to represent the number of segments
+    while ((1ULL << segment_bit_length) < num_segments)
+    {
+        ++segment_bit_length;
+    }
+
+    // Shift the hash value right by the number of bits for the bucket index
+    size_t shifted_hash = hash_value >> kBucketIndexBitLength;
+
+    // Mask for the segment index bits
+    size_t mask = (1ULL << segment_bit_length) - 1;
+
+    // Apply the mask to get the segment index
+    size_t segment_index = shifted_hash & mask;
+
+    // Ensure the segment index is within bounds
+    if (segment_index >= num_segments)
+    {
+        segment_index = num_segments - 1;
+    }
+
     return segment_index;
 }

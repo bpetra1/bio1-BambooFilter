@@ -3,13 +3,13 @@
 
 using namespace std;
 
-void test_insert_and_lookup(BambooFilter &filter, uint32_t element)
+void test_insert_and_lookup(BambooFilter &filter, const std::string &element)
 {
     filter.insert(element);
     cout << "Inserted " << element << ": " << filter.lookup(element) << '\n';
 }
 
-void test_remove(BambooFilter &filter, uint32_t element)
+void test_remove(BambooFilter &filter, const std::string &element)
 {
     filter.remove(element);
     cout << "Removed " << element << ": " << !filter.lookup(element) << '\n';
@@ -24,28 +24,31 @@ int main()
 
     cout << "Testing Bamboo Filter:" << endl;
 
-    test_insert_and_lookup(filter, 2);  // 1
-    test_insert_and_lookup(filter, 3);  // 1
-    test_insert_and_lookup(filter, 4);  // 1
-    test_insert_and_lookup(filter, 17); // 1
+    test_insert_and_lookup(filter, "A"); // 1
+    test_insert_and_lookup(filter, "T"); // 1
+    test_insert_and_lookup(filter, "C"); // 1
+    test_insert_and_lookup(filter, "G"); // 1
+    test_insert_and_lookup(filter, "I"); // 1
+    test_insert_and_lookup(filter, "J"); // 1
 
-    cout << "Lookup 1: " << filter.lookup(1) << '\n'; // 0
-    cout << "Lookup 4: " << filter.lookup(4) << '\n'; // 1
+    cout << "Lookup 'A': " << filter.lookup("A") << '\n'; // 1
+    cout << "Lookup 'F': " << filter.lookup("F") << '\n'; // 0
+    cout << "Lookup 'J': " << filter.lookup("J") << '\n'; // 0
 
-    test_remove(filter, 4);                                         // 1
-    cout << "Lookup 4 after removal: " << filter.lookup(4) << '\n'; // 0
+    test_remove(filter, "C");                                           // 1
+    cout << "Lookup 'C' after removal: " << filter.lookup("C") << '\n'; // 0
 
-    cout << "Lookup 2: " << filter.lookup(2) << '\n';   // 1
-    cout << "Lookup 3: " << filter.lookup(3) << '\n';   // 1
-    cout << "Lookup 17: " << filter.lookup(17) << '\n'; // 1
+    cout << "Lookup 'A': " << filter.lookup("A") << '\n'; // 1
+    cout << "Lookup 'T': " << filter.lookup("T") << '\n'; // 1
+    cout << "Lookup 'G': " << filter.lookup("G") << '\n'; // 1
 
-    filter.remove(2);
-    filter.remove(3);
-    filter.remove(17);
+    filter.remove("A");
+    filter.remove("T");
+    filter.remove("G");
     cout << "After remove:" << endl;
-    cout << "Lookup 2: " << filter.lookup(2) << '\n';   // 0
-    cout << "Lookup 3: " << filter.lookup(3) << '\n';   // 0
-    cout << "Lookup 17: " << filter.lookup(17) << '\n'; // 0
+    cout << "Lookup 'A': " << filter.lookup("A") << '\n'; // 0
+    cout << "Lookup 'T': " << filter.lookup("T") << '\n'; // 0
+    cout << "Lookup 'G': " << filter.lookup("G") << '\n'; // 0
 
     return 0;
 }

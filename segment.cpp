@@ -3,11 +3,13 @@
 #include <functional>
 #include <random>
 
-using namespace std;
-
 Segment::Segment() : overflow_(nullptr)
 {
-    this->table_ = new size_t[kNumOfBuckets * kBucketSize];
+    table_ = new size_t[kNumOfBuckets * kBucketSize];
+    for (int i = 0; i < kNumOfBuckets * kBucketSize; i++)
+    {
+        table_[i] = 0;
+    }
 }
 
 Segment::~Segment()
@@ -22,7 +24,6 @@ Segment::~Segment()
 inline size_t calclulate_fingerprint(size_t element)
 {
     // left-most bit set to 1 to indicate that bucket entry is not empty
-    // (size_t)-1 is all 1s, then we shift right to get 0 and all 1s, then add one to get 1 and all 0s
     size_t bitmask = ((size_t)-1 >> 1) + 1;
     return element >> (kBucketIndexBitLength + kInitialSegmentIndexBitLength) | bitmask;
 }
@@ -55,12 +56,12 @@ bool Segment::insert(size_t element)
     }
 
     // both buckets are full, we need to kick out a random element from one of the buckets
-    default_random_engine generator;
-    uniform_int_distribution<int> distribution(0, 1);
+    std::default_random_engine generator;
+    std::uniform_int_distribution<int> distribution(0, 1);
     size_t i = distribution(generator) == 0 ? i1 : i2;
 
     // distribution for selecting random entries in bucket
-    distribution = uniform_int_distribution<int>(0, kBucketSize);
+    distribution = std::uniform_int_distribution<int>(0, kBucketSize - 1);
 
     for (int n = 0; n < kMaxNumKicks; n++)
     {
@@ -89,9 +90,6 @@ bool Segment::insert(size_t element)
         overflow_ = new Segment();
     }
     return overflow_->insert(element);
-
-    // table is full
-    return false;
 }
 
 bool Segment::lookup(size_t element) const
@@ -171,13 +169,15 @@ void Segment::collect_elements(std::vector<size_t> &elements, size_t segment_ind
     for (int i = 0; i < kNumOfBuckets; i++)
     {
         for (int j = 0; j < kBucketSize; j++)
-        if (table_[i * kBucketSize + j] != 0)
         {
-            size_t element = table_[i * kBucketSize + j] != 0;
-            element <<= kBucketIndexBitLength + kInitialSegmentIndexBitLength;
-            element |= segment_index << kBucketIndexBitLength;
-            element |= i;
-            elements.push_back(element);
+            if (table_[i * kBucketSize + j] != 0)
+            {
+                size_t element = table_[i * kBucketSize + j] & ~(((size_t)-1 >> 1) + 1); // remove the left-most bit set to 1
+                element <<= (kBucketIndexBitLength + kInitialSegmentIndexBitLength);
+                element |= (segment_index << kBucketIndexBitLength);
+                element |= i;
+                elements.push_back(element);
+            }
         }
     }
     if (overflow_ != nullptr)
