@@ -2,12 +2,31 @@
 \babel@toc {croatian}{}\relax 
 \babel@toc {croatian}{}\relax 
 \babel@toc {croatian}{}\relax 
-\contentsline {chapter}{Sa\v {z}etak}{1}{Doc-Start}%
+\contentsline {chapter}{Sa\v {z}etak}{2}{Doc-Start}%
 \babel@toc {croatian}{}\relax 
 \babel@toc {croatian}{}\relax 
 \babel@toc {croatian}{}\relax 
-\contentsline {chapter}{\numberline {1.}Uvod}{3}{chapter.1}%
-\contentsline {chapter}{\numberline {2.}Glavni dio}{4}{chapter.2}%
-\contentsline {chapter}{\numberline {3.}Rezultati i rasprava}{5}{chapter.3}%
-\contentsline {chapter}{\numberline {4.}Zaključak}{7}{chapter.4}%
-\contentsline {chapter}{\numberline {A:}The Code}{8}{chapter.1}%
+\contentsline {chapter}{\numberline {1.}Uvod}{5}{chapter.1}%
+\contentsline {chapter}{\numberline {2.}Glavni dio}{6}{chapter.2}%
+\contentsline {section}{\numberline {2.1.}Struktura Bamboo Filtera}{6}{section.2.1}%
+\contentsline {section}{\numberline {2.2.}Cuckoo Filter}{6}{section.2.2}%
+\contentsline {section}{\numberline {2.3.}Algoritmi Bamboo Filtera}{7}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1.}Algoritam Umetanja}{7}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2.}Algoritam Proširenja}{7}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3.}Algoritam Uklanjanja}{7}{subsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.3.4.}Algoritam Pretrage}{7}{subsection.2.3.4}%
+\contentsline {subsection}{\numberline {2.3.5.}Algoritam Kompresije}{7}{subsection.2.3.5}%
+\contentsline {section}{\numberline {2.4.}Ilustracija Primjera Umetanja}{8}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1.}Početna Struktura}{8}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2.}Umetanje Elementa e1}{8}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3.}Umetanje Elementa e2}{8}{subsection.2.4.3}%
+\contentsline {chapter}{\numberline {3.}Rezultati i rasprava}{10}{chapter.3}%
+\contentsline {section}{\numberline {3.1.}Testiranje na umjetno generiranim podatcima}{10}{section.3.1}%
+\contentsline {section}{\numberline {3.2.}Vrijeme izvođenja}{11}{section.3.2}%
+\contentsline {section}{\numberline {3.3.}Iskorištena memorija}{12}{section.3.3}%
+\contentsline {section}{\numberline {3.4.}Preciznost}{12}{section.3.4}%
+\contentsline {section}{\numberline {3.5.}Lažno pozitivno}{12}{section.3.5}%
+\contentsline {section}{\numberline {3.6.}Testiranje na stvarnim podatcima (Escherichia coli)}{12}{section.3.6}%
+\contentsline {chapter}{\numberline {4.}Zaključak}{14}{chapter.4}%
+\contentsline {chapter}{Literatura}{15}{chapter*.7}%
+\contentsline {chapter}{\numberline {A:}The Code}{16}{chapter.1}%

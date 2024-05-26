@@ -1,0 +1,58 @@
+This is BibTeX, Version 0.99d (TeX Live 2023)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: seminarski_rad.aux
+The style file: fer_IEEEtran_HR.bst
+Illegal, another \bibstyle command---line 43 of file seminarski_rad.aux
+ : \bibstyle
+ :          {plain}
+I'm skipping whatever remains of this command
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 150 items from 100.
+Database file #1: literatura.bib
+You've used 3 entries,
+            4225 wiz_defined-function locations,
+            858 strings with 8372 characters,
+and the built_in function-call counts, 2939 in all, are:
+= -- 230
+> -- 60
+< -- 27
++ -- 34
+- -- 9
+* -- 148
+:= -- 447
+add.period$ -- 10
+call.type$ -- 3
+change.case$ -- 3
+chr.to.int$ -- 66
+cite$ -- 3
+duplicate$ -- 189
+empty$ -- 236
+format.name$ -- 11
+if$ -- 684
+int.to.chr$ -- 0
+int.to.str$ -- 3
+missing$ -- 31
+newline$ -- 40
+num.names$ -- 3
+pop$ -- 69
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 226
+stack$ -- 0
+substring$ -- 157
+swap$ -- 160
+text.length$ -- 5
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 3
+warning$ -- 0
+while$ -- 15
+width$ -- 4
+write$ -- 62
+(There was 1 error message)
