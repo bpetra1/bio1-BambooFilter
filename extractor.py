@@ -27,11 +27,11 @@ def find_positives(k):
 # k je velicina k-mera, predaje se kao argument skripte
 def main(k):
     global genome, file_positive, file_negative
-    f = open("data/genome.txt", "r")
+    f = open("data/5000000/genome.txt", "r")
     genome = ''.join(f.readlines()).replace('\n', '')
     f.close()
-    file_positive = open("data/positives_" + k + ".txt", "w")
-    file_negative= open("data/negatives_" + k + ".txt", "w")
+    file_positive = open("data/5000000/positives_" + k + ".txt", "w")
+    file_negative= open("data/5000000/negatives_" + k + ".txt", "w")
     find_negatives("", int(k))
     find_positives(int(k))
     file_positive.close()
