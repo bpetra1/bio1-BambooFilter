@@ -12,7 +12,7 @@ BambooFilter::BambooFilter()
 {
     srand(time(0));
     segments.reserve(kInitialNumOfSegments);
-    for (size_t i = 0; i < kInitialNumOfSegments; ++i)
+    for (uint32_t i = 0; i < kInitialNumOfSegments; ++i)
     {
         segments.push_back(new Segment());
     }
@@ -30,13 +30,13 @@ BambooFilter::~BambooFilter()
 
 bool BambooFilter::insert(const std::string &element)
 {
-    size_t hash_val = hash(element);
+    uint32_t hash_val = hash(element);
     return insert_hash(hash_val);
 }
 
-bool BambooFilter::insert_hash(const size_t &hash_val)
+bool BambooFilter::insert_hash(const uint32_t &hash_val)
 {
-    size_t segment_index = get_segment_index(hash_val);
+    uint32_t segment_index = get_segment_index(hash_val);
 
     if (segment_index >= segments.size())
     {
@@ -60,13 +60,13 @@ bool BambooFilter::insert_hash(const size_t &hash_val)
 
 bool BambooFilter::lookup(const std::string &element) const
 {
-    size_t hash_val = hash(element);
+    uint32_t hash_val = hash(element);
     return lookup_hash(hash_val);
 }
 
-bool BambooFilter::lookup_hash(const size_t &hash_val) const
+bool BambooFilter::lookup_hash(const uint32_t &hash_val) const
 {
-    size_t segment_index = get_segment_index(hash_val);
+    uint32_t segment_index = get_segment_index(hash_val);
     if (segment_index >= segments.size())
     {
         return false;
@@ -76,13 +76,13 @@ bool BambooFilter::lookup_hash(const size_t &hash_val) const
 
 bool BambooFilter::remove(const std::string &element)
 {
-    size_t hash_val = hash(element);
+    uint32_t hash_val = hash(element);
     return remove_hash(hash_val);
 }
 
-bool BambooFilter::remove_hash(const size_t &hash_val)
+bool BambooFilter::remove_hash(const uint32_t &hash_val)
 {
-    size_t segment_index = get_segment_index(hash_val);
+    uint32_t segment_index = get_segment_index(hash_val);
 
     if (segment_index >= segments.size())
     {
@@ -108,7 +108,7 @@ void BambooFilter::expand()
     segments.push_back(new Segment());
 
     // Rehash elements only from the current segment
-    std::vector<size_t> elements_to_rehash;
+    std::vector<uint32_t> elements_to_rehash;
     segments[current_segment_index]->collect_elements(elements_to_rehash, current_segment_index);
     segments[current_segment_index]->clear();
 
@@ -138,7 +138,7 @@ void BambooFilter::compress()
     }
 
     // Collect elements from the current segment for compression
-    std::vector<size_t> elements_to_rehash;
+    std::vector<uint32_t> elements_to_rehash;
     segments[current_segment_index]->collect_elements(elements_to_rehash, current_segment_index);
 
     // Remove the current segment
@@ -161,15 +161,15 @@ void BambooFilter::compress()
     compression_threshold = expansion_threshold / 2;
 }
 
-size_t BambooFilter::hash(const std::string &element) const
+uint32_t BambooFilter::hash(const std::string &element) const
 {
     return std::hash<std::string>()(element);
 }
 
-size_t BambooFilter::get_segment_index(size_t hash_value) const
+uint32_t BambooFilter::get_segment_index(uint32_t hash_value) const
 {
-    size_t num_segments = segments.size();
-    size_t segment_bit_length = kInitialSegmentIndexBitLength;
+    uint32_t num_segments = segments.size();
+    uint32_t segment_bit_length = kInitialSegmentIndexBitLength;
 
     // Calculate the number of bits needed to represent the number of segments
     while ((1ULL << segment_bit_length) < num_segments)
@@ -178,13 +178,13 @@ size_t BambooFilter::get_segment_index(size_t hash_value) const
     }
 
     // Shift the hash value right by the number of bits for the bucket index
-    size_t shifted_hash = hash_value >> kBucketIndexBitLength;
+    uint32_t shifted_hash = hash_value >> kBucketIndexBitLength;
 
     // Mask for the segment index bits
-    size_t mask = (1ULL << segment_bit_length) - 1;
+    uint32_t mask = (1ULL << segment_bit_length) - 1;
 
     // Apply the mask to get the segment index
-    size_t segment_index = shifted_hash & mask;
+    uint32_t segment_index = shifted_hash & mask;
 
     if (segment_index >= num_segments)
     {

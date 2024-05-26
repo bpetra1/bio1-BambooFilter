@@ -10,17 +10,17 @@ class Segment
 {
 private:
     // two dimensional array with kNumOfBuckets rows and kBucketSize columns; implemented as one dimensional to achieve memory locality
-    size_t *table_;
+    uint32_t *table_;
     // pointer to this segment's overflow segment
     Segment *overflow_;
 
 public:
     Segment();
     ~Segment();
-    bool insert(size_t element);
-    bool lookup(size_t element) const;
-    bool remove(size_t element);
-    void collect_elements(vector<size_t> &elements, size_t segment_index) const;
+    bool insert(uint32_t element);
+    bool lookup(uint32_t element) const;
+    bool remove(uint32_t element);
+    void collect_elements(vector<uint32_t> &elements, uint32_t segment_index) const;
     void clear();
 };
 
