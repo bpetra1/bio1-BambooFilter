@@ -8,7 +8,7 @@
 
 BambooFilter::BambooFilter()
     : elements_count(0), current_segment_index(0),
-      expansion_threshold(2 * kNumOfBuckets), compression_threshold(expansion_threshold / 2)
+      expansion_threshold(2 * kNumOfBuckets), compression_threshold(0)
 {
     srand(time(0));
     segments.reserve(kInitialNumOfSegments);
@@ -111,22 +111,23 @@ void BambooFilter::expand()
     std::vector<uint32_t> elements_to_rehash;
     segments[current_segment_index]->collect_elements(elements_to_rehash, current_segment_index);
     segments[current_segment_index]->clear();
+    elements_count -= elements_to_rehash.size();
+
+    // Update thresholds
+    compression_threshold = expansion_threshold;
+    expansion_threshold += 2 * kNumOfBuckets;
+
+    for (auto &element : elements_to_rehash)
+    {
+        insert_hash(element);
+    }
 
     // Move to the next segment for expansion
     current_segment_index++;
     if (current_segment_index * 2 == segments.size())
     {
+        // This round is over
         current_segment_index = 0;
-    }
-
-    // Update thresholds
-    expansion_threshold += 2 * kNumOfBuckets;
-    compression_threshold = expansion_threshold / 2;
-
-    for (auto &element : elements_to_rehash)
-    {
-        elements_count--;
-        insert_hash(element);
     }
 }
 
@@ -137,12 +138,18 @@ void BambooFilter::compress()
         return; // No compression if only one segment remains
     }
 
-    // Collect elements from the current segment for compression
+    // Collect elements from the current last segment for compression
     std::vector<uint32_t> elements_to_rehash;
-    segments[current_segment_index]->collect_elements(elements_to_rehash, current_segment_index);
+    segments.back()->collect_elements(elements_to_rehash, current_segment_index);
+    elements_count -= elements_to_rehash.size();
 
-    // Remove the current segment
-    segments.erase(segments.begin() + current_segment_index);
+    // Remove the last segment
+    delete segments.back();
+    segments.pop_back();
+
+    // Update thresholds
+    expansion_threshold = compression_threshold;
+    compression_threshold -= 2 * kNumOfBuckets;
 
     // Rehash elements into the remaining segments
     for (auto &element : elements_to_rehash)
@@ -150,15 +157,12 @@ void BambooFilter::compress()
         insert_hash(element);
     }
 
-    // Update the current segment index for compression
-    if (current_segment_index >= segments.size())
+    // Update the current segment index for extension
+    current_segment_index--;
+    if (current_segment_index < 0)
     {
-        current_segment_index = 0; // Wrap around if necessary
+        current_segment_index = segments.size() / 2;
     }
-
-    // Update thresholds
-    expansion_threshold /= 2;
-    compression_threshold = expansion_threshold / 2;
 }
 
 uint32_t BambooFilter::hash(const std::string &element) const

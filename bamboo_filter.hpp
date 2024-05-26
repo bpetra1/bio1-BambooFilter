@@ -24,7 +24,6 @@ private:
     void compress();
 
     uint32_t hash(const std::string &element) const;
-    uint32_t get_segment_bit_mask(uint32_t hash_value) const;
     uint32_t get_segment_index(uint32_t hash_value) const;
 
     std::vector<Segment *> segments;
