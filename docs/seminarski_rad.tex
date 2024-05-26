@@ -58,7 +58,7 @@
 	\label{pog:glavni_dio}
 	
 	\section{Struktura Bamboo Filtera}
-	Bamboo filter se sastoji od četiri sloja podataka: hash tablice, segmenta, kantice (bucket) i ulaza (entry). Ulaz je osnovna jedinica Bamboo filtera, gdje se svaki element pohranjuje kao otisak (fingerprint) u ulazu. Više ulaza čini kanticu, koja je osnovna jedinica hash mapiranja tijekom umetanja, pretraživanja i brisanja. Segment je uveden između hash tablice i kantice, a niz uzastopnih kantica formira segment, dok niz segmenata čini hash tablicu. Svaki segment je zapravo cuckoo filter. \cite{wang2022bamboo}.
+	Bamboo filter se sastoji od četiri sloja podataka: hash tablice, segmenta, kantice (bucket) i ulaza (entry). Ulaz je osnovna jedinica Bamboo filtera, gdje se svaki element pohranjuje kao otisak (fingerprint) u ulazu. Više ulaza čini kanticu, koja je osnovna jedinica hash mapiranja tijekom umetanja, pretraživanja i brisanja. Segment je uveden između hash tablice i kantice, a niz uzastopnih kantica formira segment, dok niz segmenata čini hash tablicu. Svaki segment je zapravo jednostavni cuckoo filter. \cite{wang2022bamboo}.
 	
 	\section{Cuckoo Filter}
 	Cuckoo filter je napredna struktura podataka za upite približnog članstva koja koristi princip premještanja (cuckooing) za postizanje visoke učinkovitosti i niskog postotka lažnih pozitivnih rezultata. Cuckoo filteri koriste dvije ili više hash funkcija za mapiranje svakog elementa na dvije ili više potencijalnih mjesta u tablici. Ako su sva potencijalna mjesta zauzeta, jedan od već pohranjenih elemenata se premješta na alternativno mjesto, oslobađajući prostor za novi element \cite{fan2013cuckoo}.
@@ -88,7 +88,7 @@
 	Algoritam pretrage provjerava je li određeni element prisutan u Bamboo filteru. Elementi se traže u primarnoj i alternativnoj kantici u segmentu, a ako je segment prepunjen, traže se i u segmentu preljeva.
 	
 	\subsection{Algoritam Kompresije}
-	Algoritam kompresije smanjuje veličinu Bamboo filtera uklanjanjem praznih segmenata i ponovnom organizacijom preostalih segmenata.
+	Algoritam kompresije smanjuje veličinu Bamboo filtera uklanjanjem posljednjeg segmenta prebacivanjem njegovih elemenata.
 	
 	
 	\section{Ilustracija Primjera Umetanja}
@@ -108,7 +108,7 @@
 	\begin{itemize}
 		\item Izračun otiska, segmentnog indeksa i indeksa kantice.
 		\item Primarna kantica nije dostupna, otisak se premješta u alternativnu kanticu.
-		\item Dodaje se novi, 5. segment za smještaj novog otiska 111.
+		\item Ako je ovo dodavanje okinulo proširenje, dodaje se novi, 5. segment te otisak 111 ide u njega jer se sad za indeks segmenta gleda i zadnji bit otiska (101 = 5)
 	\end{itemize}
 	Ilustracija ovog procesa prikazana je na slici \ref{fig:insertion_e1}.
 	
@@ -124,7 +124,7 @@
 	\begin{itemize}
 		\item Izračun otiska, segmentnog indeksa i indeksa kantice.
 		\item Primarna kantica nije dostupna, otisak se premješta u alternativnu kanticu.
-		\item Dodaje se novi, 6. segment za smještaj novog otiska 101.
+		\item Ako je ovo dodavanje okinulo proširenje, dodaje se novi, 6. segment za smještaj novog otiska 101.
 	\end{itemize}
 	Ilustracija ovog procesa prikazana je na slici \ref{fig:insertion_e2}.
 	
