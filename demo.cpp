@@ -5,7 +5,7 @@
 using namespace std;
 
 int main() {
-    ifstream file("data/genome.txt");
+    ifstream file("data/genome/genome.txt");
     string genome;
     while (file) { 
         string line;
@@ -27,7 +27,7 @@ int main() {
     int false_positives = 0;
     int false_negatives = 0;
 
-    ifstream neg_file("data/negatives_" + to_string(k) + ".txt");
+    ifstream neg_file("data/genome/negatives_" + to_string(k) + ".txt");
     while (neg_file) {
         string k_mer;
         neg_file >> k_mer; 
@@ -41,7 +41,7 @@ int main() {
         }
     }
 
-    ifstream pos_file("data/positives_" + to_string(k) + ".txt");
+    ifstream pos_file("data/genome/positives_" + to_string(k) + ".txt");
     while (pos_file) {
         string k_mer;
         pos_file >> k_mer; 

@@ -20,7 +20,7 @@ int main()
     size_t initial_capacity = 16;
     size_t segment_size = 4;
 
-    BambooFilter filter(initial_capacity, segment_size);
+    BambooFilter filter;
 
     cout << "Testing Bamboo Filter:" << endl;
 

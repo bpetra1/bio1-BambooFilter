@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.5.6)  10 MAY 2024 15:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.5.6)  26 MAY 2024 15:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -612,7 +612,7 @@ File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count316
 \l__pdf_internal_box=\box55
 )
-No file seminarski_rad.aux.
+(./seminarski_rad.aux)
 \openout1 = `seminarski_rad.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 30.
@@ -632,6 +632,7 @@ LaTeX Font Info:    ... okay on input line 30.
 LaTeX Font Info:    Checking defaults for LS1/stix2/m/n on input line 30.
 LaTeX Font Info:    Trying to load font information for LS1+stix2 on input line
  30.
+
 (/usr/share/texlive/texmf-dist/tex/latex/stix2-type1/ls1stix2.fd
 File: ls1stix2.fd 2018/04/02 v2.0.0-latex stix2 LS1 font definitions
 )
@@ -725,6 +726,8 @@ Package caption Info: End \AtBeginDocument code.
 LaTeX Info: Command `\dddot' is already robust on input line 30.
 LaTeX Info: Command `\ddddot' is already robust on input line 30.
 Package hyperref Info: Link coloring OFF on input line 30.
+
+(./seminarski_rad.out) (./seminarski_rad.out)
 \@outlinefile=\write3
 \openout3 = `seminarski_rad.out'.
 
@@ -834,12 +837,11 @@ e
 e 56.
 LaTeX Font Info:    Font shape `T1/opensans-TLF/b/n' will be
 (Font)              scaled to size 18.0pt on input line 56.
-
-No file seminarski_rad.toc.
+ (./seminarski_rad.toc)
 \tf@toc=\write4
 \openout4 = `seminarski_rad.toc'.
 
-[2
+ [2
 
 ]
 Poglavlje 1..
@@ -851,38 +853,13 @@ Poglavlje 2..
 
 ]
 Poglavlje 3..
-
-Package blindtext Warning: croatian not defined, using English instead.
-(blindtext)                 on input line 80.
-
-
-Package blindtext Warning: croatian not defined, using English instead.
-(blindtext)                 on input line 80.
-
-
-Package blindtext Warning: croatian not defined, using English instead.
-(blindtext)                 on input line 80.
-
-
-Package blindtext Warning: croatian not defined, using English instead.
-(blindtext)                 on input line 80.
-
 [5
 
-]
-
-Package blindtext Warning: croatian not defined, using English instead.
-(blindtext)                 on input line 80.
-
-
-Package blindtext Warning: croatian not defined, using English instead.
-(blindtext)                 on input line 80.
-
-[6]
+] [6]
 Poglavlje 4..
 
 Package blindtext Warning: croatian not defined, using English instead.
-(blindtext)                 on input line 87.
+(blindtext)                 on input line 185.
 
 No file seminarski_rad.bbl.
 [7
@@ -892,24 +869,24 @@ pdfTeX warning (ext4): destination with the same identifier (name{chapter.1}) h
 as been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.100 \chapter{The Code}
+l.198 \chapter{The Code}
                         
 Privitak A.
 
 Package blindtext Warning: croatian not defined, using English instead.
-(blindtext)                 on input line 103.
+(blindtext)                 on input line 201.
 
 
 Package blindtext Warning: croatian not defined, using English instead.
-(blindtext)                 on input line 103.
+(blindtext)                 on input line 201.
 
 
 Package blindtext Warning: croatian not defined, using English instead.
-(blindtext)                 on input line 103.
+(blindtext)                 on input line 201.
 
 
 Package blindtext Warning: croatian not defined, using English instead.
-(blindtext)                 on input line 103.
+(blindtext)                 on input line 201.
 
 [8
 
@@ -917,11 +894,11 @@ Package blindtext Warning: croatian not defined, using English instead.
 ]
 
 Package blindtext Warning: croatian not defined, using English instead.
-(blindtext)                 on input line 103.
+(blindtext)                 on input line 201.
 
 
 Package blindtext Warning: croatian not defined, using English instead.
-(blindtext)                 on input line 103.
+(blindtext)                 on input line 201.
 
 [9] (./seminarski_rad.aux)
 
@@ -1016,6 +993,8 @@ pdflscape.sty    2022-10-27 v0.13 Display of landscape pages in PDF
 pdflscape-nometadata.sty    2022-10-28 v0.13 Display of landscape pages in PDF 
 (HO)
   lscape.sty    2020/05/28 v3.02 Landscape Pages (DPC)
+seminarski_rad.out
+seminarski_rad.out
 T1opensans-TLF.fd    2019/06/24 Font definitions for T1/opensans-TLF.
 ls1stix2scr.fd    2018/04/02 v2.0.0-latex stix2 script LS1 font definitions
 ls2stix2ex.fd    2018/04/02 v2.0.0-latex stix2 extentions LS2 font definitions
@@ -1032,21 +1011,15 @@ ls2stix2tt.fd    2018/04/02 v2.0.0-latex stix2 typewriter LS2 font definitions
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-
-Package rerunfilecheck Warning: File `seminarski_rad.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `seminarski_rad.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  5AA46CD7DFA5EBB971B35B3970FF0872;566.
+Package rerunfilecheck Info: File `seminarski_rad.out' has not changed.
+(rerunfilecheck)             Checksum: 5AA46CD7DFA5EBB971B35B3970FF0872;566.
  ) 
 Here is how much of TeX's memory you used:
- 17835 strings out of 477985
- 278495 string characters out of 5839381
- 1855388 words of memory out of 6000000
- 37731 multiletter control sequences out of 15000+600000
- 557796 words of font info for 87 fonts, out of 8000000 for 9000
+ 17893 strings out of 477985
+ 279444 string characters out of 5839381
+ 1867388 words of memory out of 6000000
+ 37781 multiletter control sequences out of 15000+600000
+ 577100 words of font info for 129 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  87i,6n,131p,650b,565s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/ascender/opensans/OpenSans-Bold.pf
@@ -1055,10 +1028,10 @@ b></usr/share/texlive/texmf-dist/fonts/type1/ascender/opensans/OpenSans-Regular
 ld.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/stix2-type1/STIX2Text-
 Italic.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/stix2-type1/STIX2T
 ext-Regular.pfb>
-Output written on seminarski_rad.pdf (10 pages, 450960 bytes).
+Output written on seminarski_rad.pdf (10 pages, 468406 bytes).
 PDF statistics:
- 84 PDF objects out of 1000 (max. 8388607)
- 61 compressed objects within 1 object stream
+ 109 PDF objects out of 1000 (max. 8388607)
+ 86 compressed objects within 1 object stream
  15 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 49 words of extra memory for PDF output out of 10000 (max. 10000000)
 
