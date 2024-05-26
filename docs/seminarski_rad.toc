@@ -25,8 +25,7 @@
 \contentsline {section}{\numberline {3.2.}Vrijeme izvođenja}{11}{section.3.2}%
 \contentsline {section}{\numberline {3.3.}Iskorištena memorija}{12}{section.3.3}%
 \contentsline {section}{\numberline {3.4.}Preciznost}{12}{section.3.4}%
-\contentsline {section}{\numberline {3.5.}Lažno pozitivno}{12}{section.3.5}%
-\contentsline {section}{\numberline {3.6.}Testiranje na stvarnim podatcima (Escherichia coli)}{12}{section.3.6}%
-\contentsline {chapter}{\numberline {4.}Zaključak}{14}{chapter.4}%
-\contentsline {chapter}{Literatura}{15}{chapter*.7}%
-\contentsline {chapter}{\numberline {A:}The Code}{16}{chapter.1}%
+\contentsline {section}{\numberline {3.5.}Lažno pozitivno}{13}{section.3.5}%
+\contentsline {section}{\numberline {3.6.}Testiranje na stvarnim podatcima (Escherichia coli)}{13}{section.3.6}%
+\contentsline {chapter}{\numberline {4.}Zaključak}{17}{chapter.4}%
+\contentsline {chapter}{Literatura}{18}{chapter*.13}%

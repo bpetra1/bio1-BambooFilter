@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.3)  26 MAY 2024 20:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.3)  26 MAY 2024 22:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -862,67 +862,82 @@ Underfull \hbox (badness 10000) in paragraph at lines 144--145
 [10
 
 ]
-<images/nasumicni_rezultati.png, id=198, 1011.78pt x 578.16pt>
-File: images/nasumicni_rezultati.png Graphic file (type png)
-<use images/nasumicni_rezultati.png>
-Package pdftex.def Info: images/nasumicni_rezultati.png  used on input line 213
-.
-(pdftex.def)             Requested size: 396.91325pt x 226.81361pt.
- [11 <./images/nasumicni_rezultati.png>]
-Overfull \hbox (3.27177pt too wide) in paragraph at lines 233--233
+<images/nasumicni_rezultati_vrijeme.png, id=198, 500.5902pt x 284.5029pt>
+File: images/nasumicni_rezultati_vrijeme.png Graphic file (type png)
+<use images/nasumicni_rezultati_vrijeme.png>
+Package pdftex.def Info: images/nasumicni_rezultati_vrijeme.png  used on input 
+line 214.
+(pdftex.def)             Requested size: 396.91325pt x 225.58832pt.
+<images/nasumicni_rezultati_memorija.png, id=199, 512.3943pt x 285.7074pt>
+File: images/nasumicni_rezultati_memorija.png Graphic file (type png)
+<use images/nasumicni_rezultati_memorija.png>
+Package pdftex.def Info: images/nasumicni_rezultati_memorija.png  used on input
+ line 222.
+(pdftex.def)             Requested size: 396.91325pt x 221.32066pt.
+ [11 <./images/nasumicni_rezultati_vrijeme.png>]
+<images/nasumicni_rezultati_preciznost.png, id=206, 503.481pt x 287.1528pt>
+File: images/nasumicni_rezultati_preciznost.png Graphic file (type png)
+<use images/nasumicni_rezultati_preciznost.png>
+Package pdftex.def Info: images/nasumicni_rezultati_preciznost.png  used on inp
+ut line 230.
+(pdftex.def)             Requested size: 396.91325pt x 226.375pt.
+<images/nasumicni_rezultati_lazno.png, id=207, 507.5763pt x 292.9344pt>
+File: images/nasumicni_rezultati_lazno.png Graphic file (type png)
+<use images/nasumicni_rezultati_lazno.png>
+Package pdftex.def Info: images/nasumicni_rezultati_lazno.png  used on input li
+ne 238.
+(pdftex.def)             Requested size: 396.91325pt x 229.07346pt.
+ [12 <./images/nasumicni_rezultati_memorija.png> <./images/nasumicni_rezultati_
+preciznost.png>]
+Overfull \hbox (3.27177pt too wide) in paragraph at lines 246--246
 []\T1/opensans-TLF/b/n/16 Testiranje na stvar-nim po-dat-cima (Es-c-he-ric-hia 
 coli) 
  []
 
-[12]
-<images/EColi_rezultati.png, id=209, 1011.78pt x 722.7pt>
-File: images/EColi_rezultati.png Graphic file (type png)
-<use images/EColi_rezultati.png>
-Package pdftex.def Info: images/EColi_rezultati.png  used on input line 280.
-(pdftex.def)             Requested size: 396.91325pt x 283.51701pt.
- [13 <./images/EColi_rezultati.png>]
+[13 <./images/nasumicni_rezultati_lazno.png>]
+<images/EColi_rezultati_vrijeme.png, id=223, 503.2401pt x 359.6637pt>
+File: images/EColi_rezultati_vrijeme.png Graphic file (type png)
+<use images/EColi_rezultati_vrijeme.png>
+Package pdftex.def Info: images/EColi_rezultati_vrijeme.png  used on input line
+ 293.
+(pdftex.def)             Requested size: 396.91325pt x 283.68118pt.
+<images/EColi_rezultati_memorija.png, id=224, 507.3354pt x 358.7001pt>
+File: images/EColi_rezultati_memorija.png Graphic file (type png)
+<use images/EColi_rezultati_memorija.png>
+Package pdftex.def Info: images/EColi_rezultati_memorija.png  used on input lin
+e 299.
+(pdftex.def)             Requested size: 396.91325pt x 280.63878pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<images/EColi_rezultati_preciznost.png, id=225, 500.8311pt x 360.6273pt>
+File: images/EColi_rezultati_preciznost.png Graphic file (type png)
+<use images/EColi_rezultati_preciznost.png>
+Package pdftex.def Info: images/EColi_rezultati_preciznost.png  used on input l
+ine 305.
+(pdftex.def)             Requested size: 396.91325pt x 285.8059pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<images/EColi_rezultati_lazno.png, id=226, 510.708pt x 364.4817pt>
+File: images/EColi_rezultati_lazno.png Graphic file (type png)
+<use images/EColi_rezultati_lazno.png>
+Package pdftex.def Info: images/EColi_rezultati_lazno.png  used on input line 3
+11.
+(pdftex.def)             Requested size: 396.91325pt x 283.27681pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[14 <./images/EColi_rezultati_vrijeme.png>] [15 <./images/EColi_rezultati_memor
+ija.png> <./images/EColi_rezultati_preciznost.png>] [16 <./images/EColi_rezulta
+ti_lazno.png>]
 Poglavlje 4..
-(./seminarski_rad.bbl [14
+(./seminarski_rad.bbl [17
 
-]) [15
+]) [18
 
-]
-pdfTeX warning (ext4): destination with the same identifier (name{chapter.1}) h
-as been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.313 \chapter{The Code}
-                        
-Privitak A.
-
-Package blindtext Warning: croatian not defined, using English instead.
-(blindtext)                 on input line 316.
-
-
-Package blindtext Warning: croatian not defined, using English instead.
-(blindtext)                 on input line 316.
-
-
-Package blindtext Warning: croatian not defined, using English instead.
-(blindtext)                 on input line 316.
-
-
-Package blindtext Warning: croatian not defined, using English instead.
-(blindtext)                 on input line 316.
-
-[16
-
-
-]
-
-Package blindtext Warning: croatian not defined, using English instead.
-(blindtext)                 on input line 316.
-
-
-Package blindtext Warning: croatian not defined, using English instead.
-(blindtext)                 on input line 316.
-
-[17] (./seminarski_rad.aux)
+] (./seminarski_rad.aux)
  ***********
 LaTeX2e <2023-11-01>
 L3 programming layer <2023-11-09>
@@ -1036,19 +1051,31 @@ ts1stix2.fd    2018/04/02 v2.0.0-latex stix2 TS1 font definitions
 images/initial_segments.png
 images/umetanje_el1.png
 images/umetanje_el2.png
-images/nasumicni_rezultati.png
-images/EColi_rezultati.png
+images/nasumicni_rezultati_vrijeme.png
+images/nasumicni_rezultati_memorija.png
+images/nasumicni_rezultati_preciznost.png
+images/nasumicni_rezultati_lazno.png
+images/EColi_rezultati_vrijeme.png
+images/EColi_rezultati_memorija.png
+images/EColi_rezultati_preciznost.png
+images/EColi_rezultati_lazno.png
 seminarski_rad.bbl
  ***********
 
-Package rerunfilecheck Info: File `seminarski_rad.out' has not changed.
-(rerunfilecheck)             Checksum: B547DBD41C9ACD7E5CDA2135F91396C5;3807.
+
+Package rerunfilecheck Warning: File `seminarski_rad.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `seminarski_rad.out':
+(rerunfilecheck)             Before: B3657C31C9D4866F2206FB50171CF901;3808
+(rerunfilecheck)             After:  DE295984E6E945E4DA7766CBDC30D1DE;3721.
  ) 
 Here is how much of TeX's memory you used:
- 17990 strings out of 474267
- 278718 string characters out of 5751465
+ 18057 strings out of 474267
+ 281414 string characters out of 5751465
  1937558 words of memory out of 5000000
- 39851 multiletter control sequences out of 15000+600000
+ 39911 multiletter control sequences out of 15000+600000
  658903 words of font info for 154 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  87i,6n,131p,899b,620s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1058,10 +1085,10 @@ c:/texlive/2023/texmf-dist/fonts/type1/public/stix2-type1/STIX2Math.pfb><c:/tex
 live/2023/texmf-dist/fonts/type1/public/stix2-type1/STIX2Text-Bold.pfb><c:/texl
 ive/2023/texmf-dist/fonts/type1/public/stix2-type1/STIX2Text-Italic.pfb><c:/tex
 live/2023/texmf-dist/fonts/type1/public/stix2-type1/STIX2Text-Regular.pfb>
-Output written on seminarski_rad.pdf (17 pages, 1361911 bytes).
+Output written on seminarski_rad.pdf (18 pages, 1427971 bytes).
 PDF statistics:
- 287 PDF objects out of 1000 (max. 8388607)
- 243 compressed objects within 3 object streams
- 50 named destinations out of 1000 (max. 500000)
- 226 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 311 PDF objects out of 1000 (max. 8388607)
+ 252 compressed objects within 3 object streams
+ 57 named destinations out of 1000 (max. 500000)
+ 256 words of extra memory for PDF output out of 10000 (max. 10000000)
 

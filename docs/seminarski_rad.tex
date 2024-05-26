@@ -208,23 +208,36 @@ Originalna implementacija na nasumičnim uzorcima s k=10:
 
 U nastavku su prikazani grafovi koji uspoređuju vrijeme izvođenja, iskorištenu memoriju, preciznost i postotak lažno pozitivnih rezultata za obje implementacije.
 
+\section{Vrijeme izvođenja}
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.9\textwidth]{images/nasumicni_rezultati.png}
-	\caption{Usporedba naše implementacije i originalne implementacije Bamboo filtera.}
-	\label{fig:nasumicni_rezultati}
+	\includegraphics[width=0.9\textwidth]{images/nasumicni_rezultati_vrijeme.png}
+	\label{fig:nasumicni_rezultati_vrijeme}
 \end{figure}
-
-\section{Vrijeme izvođenja}
-Na grafu \ref{fig:nasumicni_rezultati}, prva slika prikazuje vrijeme izvođenja za različite duljine uzoraka. Naša implementacija pokazuje konzistentno vrijeme izvođenja za manje uzorke, ali vrijeme značajno raste za veće uzorke. Originalna implementacija ima stabilnije vrijeme izvođenja za veće uzorke.
+Na grafu, prva slika prikazuje vrijeme izvođenja za različite duljine uzoraka. Naša implementacija pokazuje konzistentno vrijeme izvođenja za manje uzorke, ali vrijeme značajno raste za veće uzorke. Originalna implementacija ima stabilnije vrijeme izvođenja za veće uzorke.
 
 \section{Iskorištena memorija}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{images/nasumicni_rezultati_memorija.png}
+	\label{fig:nasumicni_rezultati_memorija}
+\end{figure}
 Druga slika prikazuje iskorištenu memoriju za različite duljine uzoraka. Naša implementacija koristi više memorije, pogotovo za veće uzorke, dok originalna implementacija pokazuje umjereno povećanje memorije za veće uzorke.
 
 \section{Preciznost}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{images/nasumicni_rezultati_preciznost.png}
+	\label{fig:nasumicni_rezultati_preciznost}
+\end{figure}
 Treća slika prikazuje preciznost obiju implementacija. Naša implementacija održava maksimalnu preciznost za sve uzorke, dok originalna implementacija ima blagi pad preciznosti za najveće uzorke.
 
 \section{Lažno pozitivno}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{images/nasumicni_rezultati_lazno.png}
+	\label{fig:nasumicni_rezultati_lazno}
+\end{figure}
 Četvrta slika prikazuje postotak lažno pozitivnih rezultata. Naša implementacija ne pokazuje lažno pozitivne rezultate, dok originalna implementacija pokazuje povećanje lažno pozitivnih rezultata za veće uzorke.
 
 Ovi rezultati pokazuju da naša implementacija pruža veću preciznost bez lažno pozitivnih rezultata, ali dolazi s cijenom većeg vremena izvođenja i veće memorijske potrošnje za veće uzorke u usporedbi s originalnom implementacijom.
@@ -277,11 +290,28 @@ U nastavku su prikazani grafovi koji uspoređuju vrijeme izvođenja, iskorišten
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.9\textwidth]{images/EColi_rezultati.png}
-	\caption{Usporedba naše implementacije i originalne implementacije Bamboo filtera.}
-	\label{fig:EColi_rezultati}
+	\includegraphics[width=0.9\textwidth]{images/EColi_rezultati_vrijeme.png}
+	\caption{Graf vremena E. Coli.}
+	\label{fig:EColi_rezultati_vrijeme}
 \end{figure}
-
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{images/EColi_rezultati_memorija.png}
+	\caption{Graf memorije E. Coli.}
+	\label{fig:EColi_rezultati_memorija}
+\end{figure}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{images/EColi_rezultati_preciznost.png}
+	\caption{Graf preciznosti E. Coli.}
+	\label{fig:EColi_rezultati_preciznost}
+\end{figure}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{images/EColi_rezultati_lazno.png}
+	\caption{Graf lazno pozitivnih E. Coli.}
+	\label{fig:EColi_rezultati_lazno}
+\end{figure}
 
 
 %--- ZAKLJUČAK / CONCLUSION ----------------------------------------------------
@@ -304,15 +334,6 @@ Naša analiza pokazuje da Bamboo filter nudi značajne prednosti u pogledu preci
 % Upiši ime BibTeX datoteke bez .bib nastavka / Enter the name of the BibTeX file without .bib extension
 \bibliography{literatura}
 \bibliographystyle{plain}
-
-
-%--- PRIVITCI / APPENDIX -------------------------------------------------------
-
-\backmatter
-
-\chapter{The Code}
-
-\Blindtext
 
 
 \end{document}
