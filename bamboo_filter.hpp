@@ -8,7 +8,7 @@
 class BambooFilter
 {
 public:
-    BambooFilter(size_t initial_capacity, size_t segment_size);
+    BambooFilter();
     ~BambooFilter();
 
     bool insert(const std::string &element);
@@ -24,10 +24,10 @@ private:
     void compress();
 
     size_t hash(const std::string &element) const;
+    size_t get_segment_bit_mask(size_t hash_value) const;
     size_t get_segment_index(size_t hash_value) const;
 
-    std::vector<Segment> segments;
-    size_t segment_size;
+    std::vector<Segment*> segments;
     size_t elements_count;
     size_t current_segment_index;
     size_t expansion_threshold;

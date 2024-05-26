@@ -2,6 +2,7 @@
 #include "constants.hpp"
 #include <functional>
 #include <random>
+#include <iostream>
 
 Segment::Segment() : overflow_(nullptr)
 {
@@ -56,20 +57,16 @@ bool Segment::insert(size_t element)
     }
 
     // both buckets are full, we need to kick out a random element from one of the buckets
-    std::default_random_engine generator;
-    std::uniform_int_distribution<int> distribution(0, 1);
-    size_t i = distribution(generator) == 0 ? i1 : i2;
-
-    // distribution for selecting random entries in bucket
-    distribution = std::uniform_int_distribution<int>(0, kBucketSize - 1);
+    size_t i = rand() & 1 == 0 ? i1 : i2;
 
     for (int n = 0; n < kMaxNumKicks; n++)
     {
         // get random entry
-        size_t e = table_[i * kBucketSize + distribution(generator)];
+        int bucket = rand() % kBucketSize;
+        size_t e = table_[i * kBucketSize + bucket];
 
         // put fingerprint in that spot
-        table_[i * kBucketSize + distribution(generator)] = fingerprint;
+        table_[i * kBucketSize + bucket] = fingerprint;
         fingerprint = e;
 
         // calculate alternative bucket of element that was kicked out and try to put it there
@@ -89,7 +86,9 @@ bool Segment::insert(size_t element)
     {
         overflow_ = new Segment();
     }
-    return overflow_->insert(element);
+    // note: new_element doesn't have segment index bits set, but they are not important anymore
+    size_t new_element = fingerprint << (kInitialSegmentIndexBitLength + kBucketIndexBitLength) | i;
+    return overflow_->insert(new_element);
 }
 
 bool Segment::lookup(size_t element) const

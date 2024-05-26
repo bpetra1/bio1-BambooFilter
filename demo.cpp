@@ -17,7 +17,7 @@ int main() {
     cout << "Unesi k (10, 20, 50, 100 ili 200): ";
     cin >> k;
 
-    BambooFilter b(16, 4);
+    BambooFilter b;
     for (int i = 0; i < genome.size() - k + 1; i++) {
         b.insert(genome.substr(i, k));
     }

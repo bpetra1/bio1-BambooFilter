@@ -2,10 +2,10 @@
 #define CONSTANTS_H
 
 #define kMaxNumKicks 10
-#define kNumOfBuckets 4
-#define kBucketIndexBitLength 2
+#define kNumOfBuckets 1024
+#define kBucketIndexBitLength 10
 #define kBucketSize 4
-#define kInitialNumOfSegments 8
-#define kInitialSegmentIndexBitLength 3
+#define kInitialNumOfSegments 16
+#define kInitialSegmentIndexBitLength 4
 
 #endif
