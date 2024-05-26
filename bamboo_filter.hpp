@@ -26,11 +26,11 @@ private:
     uint32_t hash(const std::string &element) const;
     uint32_t get_segment_index(uint32_t hash_value) const;
 
-    std::vector<Segment *> segments;
-    uint32_t elements_count;
-    uint32_t current_segment_index;
-    uint32_t expansion_threshold;
-    uint32_t compression_threshold;
+    std::vector<Segment *> segments_;
+    uint32_t elements_count_;
+    uint32_t current_segment_index_;
+    uint32_t expansion_threshold_;
+    uint32_t compression_threshold_;
 };
 
 #endif // BAMBOO_FILTER_HPP
