@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.3)  27 MAY 2024 17:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.3)  27 MAY 2024 20:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1072,14 +1072,14 @@ Here is how much of TeX's memory you used:
  39911 multiletter control sequences out of 15000+600000
  658903 words of font info for 154 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 87i,6n,131p,899b,620s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 87i,6n,131p,712b,620s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2023/texmf-dist/fonts/type1/ascender/opensans/OpenSans-Bold.pfb><
 c:/texlive/2023/texmf-dist/fonts/type1/ascender/opensans/OpenSans-Regular.pfb><
 c:/texlive/2023/texmf-dist/fonts/type1/public/stix2-type1/STIX2Math.pfb><c:/tex
 live/2023/texmf-dist/fonts/type1/public/stix2-type1/STIX2Text-Bold.pfb><c:/texl
 ive/2023/texmf-dist/fonts/type1/public/stix2-type1/STIX2Text-Italic.pfb><c:/tex
 live/2023/texmf-dist/fonts/type1/public/stix2-type1/STIX2Text-Regular.pfb>
-Output written on seminarski_rad.pdf (18 pages, 1181368 bytes).
+Output written on seminarski_rad.pdf (18 pages, 1181202 bytes).
 PDF statistics:
  307 PDF objects out of 1000 (max. 8388607)
  248 compressed objects within 3 object streams
