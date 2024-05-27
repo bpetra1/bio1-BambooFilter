@@ -10,7 +10,7 @@ class Segment
 {
 private:
     // two dimensional array with kNumOfBuckets rows and kBucketSize columns; implemented as one dimensional to achieve memory locality
-    uint32_t *table_;
+    uint16_t *table_;
     // pointer to this segment's overflow segment
     Segment *overflow_;
 
