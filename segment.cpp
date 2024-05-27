@@ -1,3 +1,5 @@
+// Author : Nikola Kušen
+
 #include "segment.hpp"
 #include "constants.hpp"
 #include <functional>

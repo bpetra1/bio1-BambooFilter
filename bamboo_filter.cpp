@@ -1,3 +1,5 @@
+// Author : Petra Buršić
+
 #include "bamboo_filter.hpp"
 #include "constants.hpp"
 #include <iostream>
