@@ -24,8 +24,6 @@ Segment::~Segment()
 
 inline uint16_t calclulate_fingerprint(uint32_t element)
 {
-    // left-most bit set to 1 to indicate that bucket entry is not empty
-    // uint32_t bitmask = ((uint32_t)-1 >> 1) + 1;
     return element >> (kBucketIndexBitLength + kInitialSegmentIndexBitLength);
 }
 
@@ -171,7 +169,8 @@ void Segment::collect_elements(std::vector<uint32_t> &elements, uint32_t segment
         {
             if (table_[i * kBucketSize + j] != 0)
             {
-                uint32_t element = table_[i * kBucketSize + j]; // & ~(((uint32_t)-1 >> 1) + 1); // remove the left-most bit set to 1
+                // calclulate original hash value by shifting fingerprint and appendind segment index and bucket index
+                uint32_t element = table_[i * kBucketSize + j];
                 element <<= (kBucketIndexBitLength + kInitialSegmentIndexBitLength);
                 element |= (segment_index << kBucketIndexBitLength);
                 element |= i;
@@ -182,6 +181,7 @@ void Segment::collect_elements(std::vector<uint32_t> &elements, uint32_t segment
     }
     if (overflow_ != nullptr)
     {
+        // collect from overflow segment and remove the overflow segment
         overflow_->collect_elements(elements, segment_index);
         delete overflow_;
         overflow_ = nullptr;
