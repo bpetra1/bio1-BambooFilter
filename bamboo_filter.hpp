@@ -29,6 +29,7 @@ private:
     std::vector<Segment *> segments_;
     uint32_t elements_count_;
     uint32_t current_segment_index_;
+    uint32_t expansion_round_;
     uint32_t expansion_threshold_;
     uint32_t compression_threshold_;
 };

@@ -25,8 +25,8 @@ Segment::~Segment()
 inline uint32_t calclulate_fingerprint(uint32_t element)
 {
     // left-most bit set to 1 to indicate that bucket entry is not empty
-    uint32_t bitmask = ((uint32_t)-1 >> 1) + 1;
-    return element >> (kBucketIndexBitLength + kInitialSegmentIndexBitLength) | bitmask;
+    // uint32_t bitmask = ((uint32_t)-1 >> 1) + 1;
+    return element >> (kBucketIndexBitLength + kInitialSegmentIndexBitLength);
 }
 
 bool Segment::insert(uint32_t element)
@@ -87,7 +87,7 @@ bool Segment::insert(uint32_t element)
         overflow_ = new Segment();
     }
     // note: new_element doesn't have segment index bits set, but they are not important anymore
-    uint32_t new_element = fingerprint << (kInitialSegmentIndexBitLength + kBucketIndexBitLength) | i;
+    uint32_t new_element = ((uint32_t)fingerprint) << (kInitialSegmentIndexBitLength + kBucketIndexBitLength) | i;
     return overflow_->insert(new_element);
 }
 
@@ -163,7 +163,7 @@ bool Segment::remove(uint32_t element)
     return false;
 }
 
-void Segment::collect_elements(std::vector<uint32_t> &elements, uint32_t segment_index) const
+void Segment::collect_elements(std::vector<uint32_t> &elements, uint32_t segment_index)
 {
     for (int i = 0; i < kNumOfBuckets; i++)
     {
@@ -171,17 +171,20 @@ void Segment::collect_elements(std::vector<uint32_t> &elements, uint32_t segment
         {
             if (table_[i * kBucketSize + j] != 0)
             {
-                uint32_t element = table_[i * kBucketSize + j] & ~(((uint32_t)-1 >> 1) + 1); // remove the left-most bit set to 1
+                uint32_t element = table_[i * kBucketSize + j]; // & ~(((uint32_t)-1 >> 1) + 1); // remove the left-most bit set to 1
                 element <<= (kBucketIndexBitLength + kInitialSegmentIndexBitLength);
                 element |= (segment_index << kBucketIndexBitLength);
                 element |= i;
                 elements.push_back(element);
+                table_[i * kBucketSize + j] = 0;
             }
         }
     }
     if (overflow_ != nullptr)
     {
         overflow_->collect_elements(elements, segment_index);
+        delete overflow_;
+        overflow_ = nullptr;
     }
 }
 

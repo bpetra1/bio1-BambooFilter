@@ -7,7 +7,7 @@
 #include <cmath>
 
 BambooFilter::BambooFilter()
-    : elements_count_(0), current_segment_index_(0),
+    : elements_count_(0), current_segment_index_(0), expansion_round_(0),
       expansion_threshold_(2 * kNumOfBuckets), compression_threshold_(0)
 {
     srand(time(0));
@@ -110,24 +110,24 @@ void BambooFilter::expand()
     // Rehash elements only from the current segment
     std::vector<uint32_t> elements_to_rehash;
     segments_[current_segment_index_]->collect_elements(elements_to_rehash, current_segment_index_);
-    segments_[current_segment_index_]->clear();
     elements_count_ -= elements_to_rehash.size();
 
     // Update thresholds
     compression_threshold_ = expansion_threshold_;
     expansion_threshold_ += 2 * kNumOfBuckets;
 
-    for (auto &element : elements_to_rehash)
-    {
-        insert_hash(element);
-    }
-
     // Move to the next segment for expansion
     current_segment_index_++;
     if (current_segment_index_ * 2 == segments_.size())
     {
         // This round is over
+        expansion_round_++;
         current_segment_index_ = 0;
+    }
+
+    for (auto &element : elements_to_rehash)
+    {
+        insert_hash(element);
     }
 }
 
@@ -151,17 +151,18 @@ void BambooFilter::compress()
     expansion_threshold_ = compression_threshold_;
     compression_threshold_ -= 2 * kNumOfBuckets;
 
-    // Rehash elements into the remaining segments
-    for (auto &element : elements_to_rehash)
-    {
-        insert_hash(element);
-    }
-
     // Update the current segment index for extension
     current_segment_index_--;
     if (current_segment_index_ < 0)
     {
+        expansion_round_--;
         current_segment_index_ = segments_.size() / 2;
+    }
+
+    // Rehash elements into the remaining segments
+    for (auto &element : elements_to_rehash)
+    {
+        insert_hash(element);
     }
 }
 
@@ -172,14 +173,7 @@ uint32_t BambooFilter::hash(const std::string &element) const
 
 uint32_t BambooFilter::get_segment_index(uint32_t hash_value) const
 {
-    uint32_t num_segments = segments_.size();
-    uint32_t segment_bit_length = kInitialSegmentIndexBitLength;
-
-    // Calculate the number of bits needed to represent the number of segments
-    while ((1ULL << segment_bit_length) < num_segments)
-    {
-        ++segment_bit_length;
-    }
+    uint32_t segment_bit_length = kInitialSegmentIndexBitLength + expansion_round_ + (current_segment_index_ != 0);
 
     // Shift the hash value right by the number of bits for the bucket index
     uint32_t shifted_hash = hash_value >> kBucketIndexBitLength;
@@ -190,7 +184,7 @@ uint32_t BambooFilter::get_segment_index(uint32_t hash_value) const
     // Apply the mask to get the segment index
     uint32_t segment_index = shifted_hash & mask;
 
-    if (segment_index >= num_segments)
+    if (segment_index >= segments_.size())
     {
         // We need to exclude left-most segment bit
         --segment_bit_length;
